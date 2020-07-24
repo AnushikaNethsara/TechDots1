@@ -308,6 +308,7 @@ namespace Medi_Help
 
         private void button6_Click_1(object sender, EventArgs e)
         {
+            
             try
             {
                 if (nic.Text.Trim() != string.Empty && test.Text.Trim() != string.Empty)
@@ -319,9 +320,10 @@ namespace Medi_Help
                             DialogResult dialog = MessageBox.Show("Are you sure want to upload?", "File Upload", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             if (dialog == DialogResult.Yes)
                             {
+                                string finishedDate = DateTime.Today.ToString();
                                 string filename = dig.FileName;
                                 DBconnection ob = new DBconnection();
-                                ob.uploadReport(filename, reportNumber, patientNic);
+                                ob.uploadReport(filename, reportNumber, patientNic, finishedDate);
                             }
                         }
                     }
@@ -338,6 +340,7 @@ namespace Medi_Help
                 MessageBox.Show("Error upload file:\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("upload: \n" + ex);
             }
+            displayAvailableReports();
         }
 
         private void button6_Click(object sender, EventArgs e)

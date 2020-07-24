@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Medi_Help
 {
@@ -17,26 +18,34 @@ namespace Medi_Help
         }
 
 
-        public void Alert(string msg)
+        public static void Alert(string msg)
         {
             Alert frm = new Alert();
             frm.showAlert(msg);
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            SetTimer();
+        }
+
+
+        //timer
+        private static System.Timers.Timer aTimer;
+        private static void SetTimer()
+        {
+            // Create a timer with a two second interval.
+            aTimer = new System.Timers.Timer(5000);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+        
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
             Alert ob = new Alert();
-            
-            
-            if (type.Text.Equals("Breakdown"))
-            {
-                ob.BackColor = Color.Red;
-            }
-            else if (type.Text.Equals("Message"))
-            {
-                ob.BackColor = Color.SeaGreen;
-            }
-            this.Alert(notifi.Text);
-            this.Alert(notifi.Text);
+
+
         }
     }
 }

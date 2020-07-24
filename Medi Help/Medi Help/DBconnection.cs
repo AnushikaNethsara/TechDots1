@@ -461,7 +461,7 @@ namespace Medi_Help
         }
 
         //****Upload report PDF to the database****//
-        public void uploadReport(string file,string reportNumber,string patientNic)
+        public void uploadReport(string file,string reportNumber,string patientNic,string finishedDate)
         {
 
             FileStream fsstream = File.OpenRead(file);
@@ -469,11 +469,12 @@ namespace Medi_Help
             fsstream.Read(contents, 0, (int)fsstream.Length);
             fsstream.Close();
            
-            string query= "UPDATE dbo.Report SET ReportDocument=(@f) WHERE ReportNumber='" + reportNumber + "' AND PatientNic='" + patientNic + "'";
+            string query= "UPDATE dbo.Report SET ReportDocument=(@f),FinishedDate=(@fd) WHERE ReportNumber='" + reportNumber + "' AND PatientNic='" + patientNic + "'";
  
             using (SqlCommand cmd = new SqlCommand(query, getConnection()))
             {
                 cmd.Parameters.AddWithValue("@f", contents);
+                cmd.Parameters.AddWithValue("@fd", finishedDate);
                 cmd.ExecuteNonQuery();
 
             }
