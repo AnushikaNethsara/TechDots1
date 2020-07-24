@@ -26,7 +26,7 @@ namespace Medi_Help
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool permission = false;
+            bool permission = false ;
             if (uName.Text.Trim() != string.Empty && pWord.Text.Trim() != string.Empty)
             {
                 try

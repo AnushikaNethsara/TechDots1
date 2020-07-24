@@ -14,9 +14,7 @@ namespace Medi_Help
     class DBconnection
     {
 
-        //public string conString = "Data Source=ANUSHH-IKKE;Initial Catalog=MediHelp;Integrated Security=True";
-        public string conString = @"Data Source=anushika.database.windows.net; Initial Catalog = test2;User ID = anushika; Password =im/2017/065;";
-
+        public string conString = "Server=tcp:anushika.database.windows.net,1433;Initial Catalog=MediHelp;Persist Security Info=False;User ID=anushika;Password=im/2017/065;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public SqlConnection getConnection()
         {
@@ -24,32 +22,25 @@ namespace Medi_Help
             con.Open();
             return con;
         }
-        //public void add(string id, string name)
-        //{
-        //    string q = "insert into dbo.example2 (id,name) values ('" + id + "','" + name + "')";
-
-        //    string query = "if object_id('dbo.example2', 'u') is null ";
-        //    query += "begin ";
-        //    query += "create table [dbo].[example2](";
-        //    query += "[id] varchar(50)  not null constraint pkemployeeid primary key,";
-        //    query += "[name] varchar(50) ,";
-        //    query += ")";
-        //    query += " end";
-
-        //    sqlcommand cmd = new sqlcommand(query, getconnection());
-        //    cmd.executenonquery();
-        //    sqlcommand cmd1 = new sqlcommand(q, getconnection());
-        //    cmd1.executenonquery();
-        //    getconnection().close();
-        //}
-
+        
 
         //*************Employees Registration************//
 
 
         public void addEmployees(employee obj)
         {
-            //**********Creating Employee Tabel & Insert Data to Employee Table************
+
+            String sqlQuery = "INSERT INTO dbo.Employee(EmployeeNic,Name,Dob,Email,Phone,EmployeeType,UserName,Password) " +
+            "VALUES ('" + obj.ENic + "','" + obj.Name + "','" + obj.Dob + "','" + obj.Email + "','" + obj.Phone + "','" + obj.EmployeeType + "','" + obj.UserName + "','" + obj.Password + "')";
+
+            SqlCommand cmd1 = new SqlCommand(sqlQuery, getConnection());
+            cmd1.ExecuteNonQuery();
+            getConnection().Close();
+        }
+
+        public bool checkUserName(string userName)
+        {
+            string query1 = "IF OBJECT_ID('dbo.Employee', 'U') IS NOT NULL SELECT COUNT(*) FROM dbo.Employee WHERE username='" + userName + "' ";
             string query = "IF OBJECT_ID('dbo.Employee', 'U') IS NULL ";
             query += "BEGIN ";
             query += "CREATE TABLE [dbo].[Employee](";
@@ -59,28 +50,18 @@ namespace Medi_Help
             query += "[Email] VARCHAR(100) NOT NULL,";
             query += "[Phone] INT NOT NULL,";
             query += "[EmployeeType] VARCHAR(100) NOT NULL,";
-            query += "[UserName] VARCHAR(100), ";
+            query += "[UserName] VARCHAR(100), "; 
             query += "[Password] VARCHAR(100) ";
+            query += "[Photo] VARBINARY(MAX) ";
             query += ")";
             query += " END";
-
-
-            String sqlQuery = "INSERT INTO dbo.Employee(EmployeeNic,Name,Dob,Email,Phone,EmployeeType,UserName,Password) " +
-            "VALUES ('" + obj.ENic + "','" + obj.Name + "','" + obj.Dob + "','" + obj.Email + "','" + obj.Phone + "','" + obj.EmployeeType + "','" + obj.UserName + "','" + obj.Password + "')";
-
             getConnection();
             SqlCommand cmd = new SqlCommand(query, getConnection());
             cmd.ExecuteNonQuery();
-            SqlCommand cmd1 = new SqlCommand(sqlQuery, getConnection());
-            cmd1.ExecuteNonQuery();
-            getConnection().Close();
-        }
 
-        public bool checkUserName(string userName)
-        {
-            string query = "SELECT COUNT(*) FROM dbo.Employee WHERE username='" + userName + "' ";
 
-            SqlDataAdapter sda = new SqlDataAdapter(query, getConnection());
+
+            SqlDataAdapter sda = new SqlDataAdapter(query1, getConnection());
 
             DataTable dt = new DataTable(); //this is creating a virtual table  
             sda.Fill(dt);
@@ -254,24 +235,12 @@ namespace Medi_Help
         //**** add patient details to the database****//
         public void addPatient(bill obj)
         {
-            string query = "IF OBJECT_ID('dbo.Patient', 'U') IS NULL ";
-            query += "BEGIN ";
-            query += "CREATE TABLE [dbo].[Patient](";
-            query += "[PatientNic] VARCHAR(25)  NOT NULL CONSTRAINT pkpatientnic PRIMARY KEY,";
-            query += "[Name] VARCHAR(25) NOT NULL,";
-            query += "[Dob] VARCHAR(25) NOT NULL,";
-            query += "[Gender] VARCHAR(100) NOT NULL,";
-            query += "[Address] VARCHAR(100) NOT NULL,";
-            query += "[Phone] INT NOT NULL,";
-            query += ")";
-            query += " END";
+            
 
             String sqlQuery = "INSERT INTO dbo.Patient(PatientNic,Name,Dob,Gender,Address,Phone) " +
             "VALUES ('" + obj.Patientnic + "','" + obj.PatientName+ "','" + obj.PatientDob + "','" + obj.PatientGender + "','" + obj.PatientAddress + "','" + obj.PatientContact + "')";
 
-            getConnection();
-            SqlCommand cmd = new SqlCommand(query, getConnection());
-            cmd.ExecuteNonQuery();
+            
             SqlCommand cmd1 = new SqlCommand(sqlQuery, getConnection());
             cmd1.ExecuteNonQuery();
             getConnection().Close();
@@ -312,9 +281,26 @@ namespace Medi_Help
         //****cashier search patient****//
         public bool searchPatient(string search)
         {
-            string query = "SELECT COUNT(*) FROM dbo.Patient WHERE PatientNic='" + search +  "'";
+            string query = "IF OBJECT_ID('dbo.Patient', 'U') IS NULL ";
+            query += "BEGIN ";
+            query += "CREATE TABLE [dbo].[Patient](";
+            query += "[PatientNic] VARCHAR(25)  NOT NULL CONSTRAINT pkpatientnic PRIMARY KEY,";
+            query += "[Name] VARCHAR(25) NOT NULL,";
+            query += "[Dob] VARCHAR(25) NOT NULL,";
+            query += "[Gender] VARCHAR(100) NOT NULL,";
+            query += "[Address] VARCHAR(100) NOT NULL,";
+            query += "[Phone] INT NOT NULL,";
+            query += ")";
+            query += " END";
 
-            SqlDataAdapter sda = new SqlDataAdapter(query, getConnection());
+            getConnection();
+            SqlCommand cmd = new SqlCommand(query, getConnection());
+            cmd.ExecuteNonQuery();
+
+
+            string query1 = "SELECT COUNT(*) FROM dbo.Patient WHERE PatientNic='" + search +  "'";
+
+            SqlDataAdapter sda = new SqlDataAdapter(query1, getConnection());
 
             DataTable dt = new DataTable(); //this is creating a virtual table  
             sda.Fill(dt);
