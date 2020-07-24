@@ -84,5 +84,45 @@ namespace Medi_Help
         {
 
         }
+
+        private void chemicalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            Admin ob = new Admin();
+            ob.ShowDialog();
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            Cashier ob = new Cashier();
+            ob.ShowDialog();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            ChemicalAndEquipment ob = new ChemicalAndEquipment();
+            ob.ShowDialog();
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            Mlt ob = new Mlt();
+            ob.ShowDialog();
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            Notification ob = new Notification();
+            ob.ShowDialog();
+        }
     }
 }
