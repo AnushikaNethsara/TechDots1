@@ -18,14 +18,42 @@ namespace Medi_Help
         }
 
 
-        public static void Alert(string msg)
+        public static void AlertSend(string msg, Alert.enmType type)
         {
             Alert frm = new Alert();
-            frm.showAlert(msg);
+            frm.showAlert(msg,type);
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            SetTimer();
+            if(notifi.Text.Trim() != string.Empty && nType.Text.Trim() == string.Empty)
+            {
+                MessageBox.Show("Empty Fields!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                string selected = this.nType.GetItemText(this.nType.SelectedItem);
+                if (selected.Equals("Success Alert"))
+                {
+                    AlertSend("Success Alert", Alert.enmType.Success);
+                }
+                else if (selected.Equals("Warning Alert"))
+                {
+                    AlertSend("Warning Alert", Alert.enmType.Warning);
+                }
+                else if (selected.Equals("Error Alert"))
+                {
+                    AlertSend("Error Alert", Alert.enmType.Error);
+                }
+                else if (selected.Equals("Info Alert"))
+                {
+                    AlertSend("Info Alert", Alert.enmType.Info);
+                }
+                else
+                {
+                    MessageBox.Show("Empty Fields!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
         }
 
 
@@ -46,6 +74,11 @@ namespace Medi_Help
             Alert ob = new Alert();
 
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AlertSend("Info Alert", Alert.enmType.Info);
         }
     }
 }

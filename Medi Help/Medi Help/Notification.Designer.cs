@@ -30,9 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.notifi = new System.Windows.Forms.RichTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.type = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.nType = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.about = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -52,26 +54,6 @@
             this.notifi.TabIndex = 2;
             this.notifi.Text = "";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(114, 96);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 17);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Notification Type";
-            // 
-            // type
-            // 
-            this.type.FormattingEnabled = true;
-            this.type.Items.AddRange(new object[] {
-            "Breakdown",
-            "Message"});
-            this.type.Location = new System.Drawing.Point(270, 96);
-            this.type.Name = "type";
-            this.type.Size = new System.Drawing.Size(329, 24);
-            this.type.TabIndex = 4;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(270, 374);
@@ -82,14 +64,58 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // nType
+            // 
+            this.nType.FormattingEnabled = true;
+            this.nType.Items.AddRange(new object[] {
+            "Success Alert",
+            "Warning Alert",
+            "Error Alert",
+            "Info Alert"});
+            this.nType.Location = new System.Drawing.Point(270, 136);
+            this.nType.Name = "nType";
+            this.nType.Size = new System.Drawing.Size(329, 24);
+            this.nType.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(114, 136);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(114, 17);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Notification Type";
+            // 
+            // about
+            // 
+            this.about.FormattingEnabled = true;
+            this.about.Items.AddRange(new object[] {
+            "Breakdown",
+            "Message"});
+            this.about.Location = new System.Drawing.Point(270, 54);
+            this.about.Name = "about";
+            this.about.Size = new System.Drawing.Size(329, 24);
+            this.about.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(114, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(119, 17);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Notification About";
+            // 
             // Notification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1382, 753);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.type);
+            this.ClientSize = new System.Drawing.Size(882, 507);
+            this.Controls.Add(this.nType);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.about);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.notifi);
             this.Controls.Add(this.label1);
             this.Name = "Notification";
@@ -103,8 +129,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox notifi;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox type;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox nType;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox about;
+        private System.Windows.Forms.Label label2;
     }
 }

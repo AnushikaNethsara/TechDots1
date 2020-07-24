@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Medi_Help.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,10 +32,18 @@ namespace Medi_Help
             start,
             close
         }
+
+        public enum enmType
+        {
+            Success,
+            Warning,
+            Error,
+            Info
+        }
         private int x, y;
         private Alert.enmAction action;
 
-        public void showAlert(string msg)
+        public void showAlert(string msg, enmType type)
         {
             this.Opacity = 0.0;
             this.StartPosition = FormStartPosition.Manual;
@@ -55,6 +64,25 @@ namespace Medi_Help
                 }
             }
             this.x = Screen.PrimaryScreen.WorkingArea.Width - base.Width - 5;
+            switch (type)
+            {
+                case enmType.Success:
+                    this.pictureBox1.Image = Resources.success;
+                    this.BackColor = Color.SeaGreen;
+                    break;
+                case enmType.Error:
+                    this.pictureBox1.Image = Resources.error;
+                    this.BackColor = Color.DarkRed;
+                    break;
+                case enmType.Info:
+                    this.pictureBox1.Image = Resources.info;
+                    this.BackColor = Color.RoyalBlue;
+                    break;
+                case enmType.Warning:
+                    this.pictureBox1.Image = Resources.warning;
+                    this.BackColor = Color.DarkOrange;
+                    break;
+            }
 
             this.lblMsg.Text = msg;
             this.Show();
@@ -67,6 +95,11 @@ namespace Medi_Help
         {
             timer1.Interval = 1;
             action = enmAction.close;
+
+        }
+
+        private void Alert_Load(object sender, EventArgs e)
+        {
 
         }
 
