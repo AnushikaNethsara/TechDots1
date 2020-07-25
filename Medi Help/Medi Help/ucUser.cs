@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Windows.Forms.VisualStyles;
+using System.IO;
 
 namespace Medi_Help
 {
@@ -143,6 +144,10 @@ namespace Medi_Help
             DBconnection ui = new DBconnection();
             string type = empType.Text;
 
+            MemoryStream ms = new MemoryStream();
+            pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+            byte[] img = ms.ToArray();
+
             if (name.Text.Trim() == string.Empty)
             {
                 MessageBox.Show("Empty Name Field!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -250,7 +255,7 @@ namespace Medi_Help
 
 
             //*************database**********************
-            if (answer == DialogResult.Yes)
+            if (answer == DialogResult.Yes || answer == DialogResult.OK)
             {
                  
                 try
@@ -263,7 +268,8 @@ namespace Medi_Help
                     string eType = empType.Text;
                     string Eusername = userName.Text;
                     string Epassword = password.Text;
-                    employee ox = new employee(Enic,Ename,date,Eemail,Ephone,eType,Eusername,Epassword);
+                    byte[] Picture = img;
+                    employee ox = new employee(Enic,Ename,date,Eemail,Ephone,eType,Eusername,Epassword,Picture);
                     
                     ui.addEmployees(ox);
 
@@ -288,6 +294,7 @@ namespace Medi_Help
             phone.Text = "";
             empType.Text = "";
             other.Text = "";
+            pictureBox1.Image = null;
             if (user.Checked)
             {
                 userName.Text = "";
@@ -325,6 +332,16 @@ namespace Medi_Help
         private void phone_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.Filter = "Choose Image(*.jpg; *.png; *.gif)|*.jpg; *.png; *.gif";
+            if (opf.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Image = Image.FromFile(opf.FileName);
+            }
         }
     }
 }
