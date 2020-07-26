@@ -268,8 +268,8 @@ namespace Medi_Help
                     string eType = empType.Text;
                     string Eusername = userName.Text;
                     string Epassword = password.Text;
-                    byte[] Picture = img;
-                    employee ox = new employee(Enic,Ename,date,Eemail,Ephone,eType,Eusername,Epassword,Picture);
+                    byte[] Photo = img;
+                    employee ox = new employee(Enic,Ename,date,Eemail,Ephone,eType,Eusername,Epassword,Photo);
                     
                     ui.addEmployees(ox);
 
