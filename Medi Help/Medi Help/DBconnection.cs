@@ -30,8 +30,8 @@ namespace Medi_Help
         public void addEmployees(employee obj)
         {
 
-            String sqlQuery = "INSERT INTO dbo.Employee(EmployeeNic,Name,Dob,Email,Phone,EmployeeType,UserName,Password,Picture) " +
-            "VALUES ('" + obj.ENic + "','" + obj.Name + "','" + obj.Dob + "','" + obj.Email + "','" + obj.Phone + "','" + obj.EmployeeType + "','" + obj.UserName + "','" + obj.Password + "','" + obj.Picture + "')";
+            String sqlQuery = "INSERT INTO dbo.Employee(EmployeeNic,Name,Dob,Email,Phone,EmployeeType,UserName,Password,Photo) " +
+            "VALUES ('" + obj.ENic + "','" + obj.Name + "','" + obj.Dob + "','" + obj.Email + "','" + obj.Phone + "','" + obj.EmployeeType + "','" + obj.UserName + "','" + obj.Password + "',CONVERT(VARBINARY(25), '" + obj.Picture + "', 1))"; 
 
             SqlCommand cmd1 = new SqlCommand(sqlQuery, getConnection());
             cmd1.ExecuteNonQuery();
@@ -52,7 +52,7 @@ namespace Medi_Help
             query += "[EmployeeType] VARCHAR(100) NOT NULL,";
             query += "[UserName] VARCHAR(100), "; 
             query += "[Password] VARCHAR(100) ";
-            query += "[Picture] VARBINARY(MAX) ";
+            query += "[Photo] VARBINARY(MAX) ";
             query += ")";
             query += " END";
             getConnection();
