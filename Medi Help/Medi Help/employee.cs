@@ -16,9 +16,9 @@ namespace Medi_Help
         private int phone;
         private string userName;
         private string password;
-        private byte[] picture;
+        private byte[] photo;
 
-        public employee(string eNic, string name, string dob,string email, int phone, string employeeType,  string userName, string password, byte[] picture)
+        public employee(string eNic, string name, string dob,string email, int phone, string employeeType,  string userName, string password, byte[] photo)
         {
             this.ENic = eNic;
             this.Name = name;
@@ -28,7 +28,7 @@ namespace Medi_Help
             this.EmployeeType = employeeType;
             this.UserName = userName;
             this.Password = password;
-            this.Picture = picture;
+            this.Photo = photo;
         }
 
         public string ENic { get => eNic; set => eNic = value; }
@@ -39,6 +39,6 @@ namespace Medi_Help
         public int Phone { get => phone; set => phone = value; }
         public string UserName { get => userName; set => userName = value; }
         public string Password { get => password; set => password = value; }
-        public byte[] Picture { get => picture; set => picture = value; }
+        public byte[] Photo { get => photo; set => photo = value; }
     }
 }

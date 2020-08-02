@@ -31,7 +31,11 @@ namespace Medi_Help
         {
 
             String sqlQuery = "INSERT INTO dbo.Employee(EmployeeNic,Name,Dob,Email,Phone,EmployeeType,UserName,Password,Photo) " +
+<<<<<<< HEAD
             "VALUES ('" + obj.ENic + "','" + obj.Name + "','" + obj.Dob + "','" + obj.Email + "','" + obj.Phone + "','" + obj.EmployeeType + "','" + obj.UserName + "','" + obj.Password + "',CONVERT(VARBINARY(25), '" + obj.Picture + "', 1))"; 
+=======
+            "VALUES ('" + obj.ENic + "','" + obj.Name + "','" + obj.Dob + "','" + obj.Email + "','" + obj.Phone + "','" + obj.EmployeeType + "','" + obj.UserName + "','" + obj.Password + "','" + obj.Photo + "')";
+>>>>>>> d411b4a571de2a9d86b62db1a37fdcf342a538b1
 
             SqlCommand cmd1 = new SqlCommand(sqlQuery, getConnection());
             cmd1.ExecuteNonQuery();
@@ -52,7 +56,11 @@ namespace Medi_Help
             query += "[EmployeeType] VARCHAR(100) NOT NULL,";
             query += "[UserName] VARCHAR(100), "; 
             query += "[Password] VARCHAR(100) ";
+<<<<<<< HEAD
             query += "[Photo] VARBINARY(MAX) ";
+=======
+            query += "[Photo] IMAGE ";
+>>>>>>> d411b4a571de2a9d86b62db1a37fdcf342a538b1
             query += ")";
             query += " END";
             getConnection();
